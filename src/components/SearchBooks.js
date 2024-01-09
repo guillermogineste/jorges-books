@@ -8,7 +8,9 @@ const SearchBooks = () => {
   const handleSearch = async () => {
     try {
       const result = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=YOUR_API_KEY`,
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${
+          BOOKS - API
+        }`,
       );
       setBooks(result.data.items.slice(0, 3)); // Get the first 3 matches
     } catch (error) {
