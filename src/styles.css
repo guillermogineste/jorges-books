@@ -1,4 +1,27 @@
 .App {
   font-family: sans-serif;
-  text-align: center;
+}
+.searh_form {
+  border: 2px solid black;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+.single_book_result {
+  border: 2px solid black;
+  padding: 8px;
+  display: flex;
+  width: 300px;
+}
+.form_book_details {
+  border: 2px solid black;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+.detail_field {
+  display: flex;
+  flex-direction: column;
 }
