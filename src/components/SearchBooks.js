@@ -8,15 +8,14 @@ const SearchBooks = () => {
   const handleSearch = async () => {
     try {
       const result = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${
-          BOOKS - API
-        }`,
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${process.env.BOOKS_API}`,
       );
       setBooks(result.data.items.slice(0, 3)); // Get the first 3 matches
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
   };
+  console.log(process.env.BOOKS_API);
 
   return (
     <div>
