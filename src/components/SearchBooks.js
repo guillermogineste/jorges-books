@@ -8,14 +8,13 @@ const SearchBooks = () => {
   const handleSearch = async () => {
     try {
       const result = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${process.env.BOOKS_API}`,
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${BOOKS_API}`,
       );
-      setBooks(result.data.items.slice(0, 3)); // Get the first 3 matches
+      setBooks(result.data.items.slice(0, 3));
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
   };
-  console.log(process.env.BOOKS_API);
 
   return (
     <div>
@@ -25,6 +24,7 @@ const SearchBooks = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
       <button onClick={handleSearch}>Search</button>
+      <p>key = {process.env.BOOKS_API}</p>
       <div>
         {books.map((book) => (
           <div key={book.id}>{book.volumeInfo.title}</div>
