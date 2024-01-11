@@ -1,24 +1,22 @@
 import "./styles.css";
 import React, { useState } from "react";
 import SearchBooks from "./components/SearchBooks";
+import ListOfBooks from "./components/ListOfBooks";
 import spanishLanguages from "./utils/spanish_languages.json";
+import { ChakraProvider } from "@chakra-ui/react";
 // TODO
-// Crear todos los campos que faltan (custom)
-// Guardar libro
-// Lista de libros
-// Exportar lista a excell
+// Al seleccionar un libro a la derecha, se deberian llenar los detalles a la izquierda
+// Arreglar problema con el idioma
 
 export default function App() {
   const [bookDetails, setBookDetails] = useState({
-    // From Books API
     title: "",
     author: "",
     page_count: "",
     isbn: "",
     publisher: "",
-    language: "",
+    language: "es",
     publisher_year: "",
-    // Custom properties
     book_id: "",
     listing_type: "Libro",
     illustrator: "",
@@ -36,7 +34,7 @@ export default function App() {
     weight_units: "",
     inventory_location: "",
     quantity: "1",
-    status: "",
+    status: "En venta",
     price: "",
     cost: "0",
     description: "",
@@ -46,12 +44,20 @@ export default function App() {
     catalogs: "",
   });
   const [selectedBook, setSelectedBook] = useState(null);
+  const [booksList, setBooksList] = useState([]);
+
+  const handleAddBookToList = (newBook) => {
+    setBooksList([...booksList, newBook]);
+  };
 
   const handleSelectBook = (book) => {
     setSelectedBook(book);
     // Language
     const languageCode = book.volumeInfo.language;
-    const languageInSpanish = spanishLanguages[languageCode] || "Desconocido";
+    let languageInSpanish = "es";
+    if (languageCode && spanishLanguages.hasOwnProperty(languageCode)) {
+      languageInSpanish = spanishLanguages[languageCode];
+    }
 
     // Publishing Year
     const publishedDate = book.volumeInfo.publishedDate || "";
@@ -76,18 +82,53 @@ export default function App() {
       isbn: isbn,
       publisher: book.volumeInfo.publisher || "",
       language: languageInSpanish,
-      publisher_year: publisherYear,
+      publisher_year: publisherYear || "",
+      book_id: "",
+      listing_type: "Libro",
+      illustrator: "",
+      keywords: "",
+      book_condition: "",
+      jacket_condition: "",
+      binding_type: "",
+      signature_type: "",
+      edition: "",
+      printing: "",
+      volume: "",
+      publisher_place: "",
+      size: "",
+      weight: "0",
+      weight_units: "",
+      inventory_location: "",
+      quantity: "1",
+      status: "En venta",
+      price: "",
+      cost: "0",
+      description: "",
+      synopsis: "",
+      private_notes: "",
+      categories: "",
+      catalogs: "",
     });
   };
 
+  const handleDeleteBook = (index) => {
+    const newBooksList = booksList.filter((_, i) => i !== index);
+    setBooksList(newBooksList);
+  };
+
   return (
+    // <ChakraProvider>
     <div className="App">
       <SearchBooks
         bookDetails={bookDetails}
         setBookDetails={setBookDetails}
         selectedBook={selectedBook}
+        setSelectedBook={setSelectedBook}
         handleSelectBook={handleSelectBook}
+        handleAddBookToList={handleAddBookToList}
       />
+      <ListOfBooks booksList={booksList} onDeleteBook={handleDeleteBook} />
     </div>
+    // </ChakraProvider>
   );
 }
