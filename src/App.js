@@ -53,16 +53,17 @@ export default function App() {
   const handleSelectBook = (book) => {
     setSelectedBook(book);
     // Language
-    const languageCode = book.volumeInfo.language;
-    let languageInSpanish = "es";
-    if (languageCode && spanishLanguages.hasOwnProperty(languageCode)) {
-      languageInSpanish = spanishLanguages[languageCode];
-    }
+    // const languageCode = book.volumeInfo.language;
+    // let languageInSpanish = "es";
+    // if (languageCode && spanishLanguages.hasOwnProperty(languageCode)) {
+    //   languageInSpanish = spanishLanguages[languageCode];
+    // }
+    const languageCode = book.volumeInfo.language || "es";
+    const languageInSpanish = spanishLanguages[languageCode] || "Español";
 
     // Publishing Year
     const publishedDate = book.volumeInfo.publishedDate || "";
     const publisherYear = publishedDate.split("-")[0];
-
     // ISBN
     const industryIdentifiers = book.volumeInfo.industryIdentifiers || [];
     const isbn13 = industryIdentifiers.find(
@@ -81,7 +82,7 @@ export default function App() {
         : "",
       isbn: isbn,
       publisher: book.volumeInfo.publisher || "",
-      language: languageInSpanish,
+      language: languageCode,
       publisher_year: publisherYear || "",
       book_id: "",
       listing_type: "Libro",
