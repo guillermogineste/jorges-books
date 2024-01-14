@@ -1,4 +1,15 @@
 import React, { useState } from "react";
+import {
+  Button,
+  Heading,
+  VStack,
+  StackDivider,
+  Text,
+  Card,
+  Stack,
+  CardBody,
+  CardFooter,
+} from "@chakra-ui/react";
 
 const ListOfBooks = ({ booksList, onDeleteBook }) => {
   const handleExport = () => {
@@ -45,20 +56,75 @@ const ListOfBooks = ({ booksList, onDeleteBook }) => {
     URL.revokeObjectURL(url);
   };
 
+  const reversedBooksList = [...booksList].reverse();
+
   return (
-    <div className="list_of_books">
-      <h3>Lista de libros</h3>
-      <button onClick={handleExport}>Exportar como .TAB</button>
-      <ul>
-        {booksList.map((book, index) => (
-          <li key={index}>
-            {book.book_id || "Sin Nº de articulo"} - {book.title} -{" "}
-            {book.author}
-            <button onClick={() => onDeleteBook(index)}>Eliminar</button>
-          </li>
+    <VStack
+      spacing={4}
+      align="stretch"
+      borderWidth="1px"
+      borderRadius="lg"
+      borderColor="gray.400"
+      flex="1"
+      p={4}
+      w="20vw"
+      backgroundColor="white"
+    >
+      <Heading as="h3" size="md">
+        Lista de libros {booksList.length > 0 && `(${booksList.length})`}
+      </Heading>
+      <Button
+        onClick={handleExport}
+        colorScheme="green"
+        isDisabled={booksList.length === 0}
+      >
+        Exportar como .TAB
+      </Button>
+      <VStack
+        divider={<StackDivider borderColor="gray.400" />}
+        spacing={4}
+        align="stretch"
+        overflowY="scroll"
+        flex="1"
+      >
+        {booksList.length === 0 && (
+          <Text color="gray.500">
+            Agrega libros a la lista para poder exportar
+          </Text>
+        )}
+        {reversedBooksList.map((book, index) => (
+          <Card
+            direction={{ base: "column", sm: "row" }}
+            p={0}
+            variant="alpha"
+            key={index}
+          >
+            <Stack>
+              <CardBody p={0}>
+                <Heading as="h4" size="sm">
+                  {book.title} - {book.author}
+                </Heading>
+
+                <Text fontSize="sm" py="2">
+                  {book.book_id || "Sin Nº de articulo"}
+                </Text>
+              </CardBody>
+
+              <CardFooter p={0}>
+                <Button
+                  onClick={() => onDeleteBook(index)}
+                  variant="outline"
+                  colorScheme="red"
+                  size="sm"
+                >
+                  Eliminar
+                </Button>
+              </CardFooter>
+            </Stack>
+          </Card>
         ))}
-      </ul>
-    </div>
+      </VStack>
+    </VStack>
   );
 };
 
