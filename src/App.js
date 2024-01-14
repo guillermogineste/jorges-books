@@ -2,11 +2,10 @@ import "./styles.css";
 import React, { useState } from "react";
 import SearchBooks from "./components/SearchBooks";
 import ListOfBooks from "./components/ListOfBooks";
-import spanishLanguages from "./utils/spanish_languages.json";
-import { ChakraProvider } from "@chakra-ui/react";
+import BookDetails from "./components/BookDetails";
+import { ChakraProvider, Center, Flex, Box } from "@chakra-ui/react";
 // TODO
 // Al seleccionar un libro a la derecha, se deberian llenar los detalles a la izquierda
-// Arreglar problema con el idioma
 
 export default function App() {
   const [bookDetails, setBookDetails] = useState({
@@ -53,14 +52,7 @@ export default function App() {
   const handleSelectBook = (book) => {
     setSelectedBook(book);
     // Language
-    // const languageCode = book.volumeInfo.language;
-    // let languageInSpanish = "es";
-    // if (languageCode && spanishLanguages.hasOwnProperty(languageCode)) {
-    //   languageInSpanish = spanishLanguages[languageCode];
-    // }
     const languageCode = book.volumeInfo.language || "es";
-    const languageInSpanish = spanishLanguages[languageCode] || "Español";
-
     // Publishing Year
     const publishedDate = book.volumeInfo.publishedDate || "";
     const publisherYear = publishedDate.split("-")[0];
@@ -117,19 +109,38 @@ export default function App() {
     setBooksList(newBooksList);
   };
 
+  const handleDetailChange = (key, value) => {
+    setBookDetails({ ...bookDetails, [key]: value });
+  };
+
   return (
-    // <ChakraProvider>
-    <div className="App">
-      <SearchBooks
-        bookDetails={bookDetails}
-        setBookDetails={setBookDetails}
-        selectedBook={selectedBook}
-        setSelectedBook={setSelectedBook}
-        handleSelectBook={handleSelectBook}
-        handleAddBookToList={handleAddBookToList}
-      />
-      <ListOfBooks booksList={booksList} onDeleteBook={handleDeleteBook} />
-    </div>
-    // </ChakraProvider>
+    <ChakraProvider>
+      <Center w="100vw" h="100vh" bg="gray.100">
+        <Flex
+          direction="row"
+          align="top"
+          justify="center"
+          gap={4}
+          w="90vw"
+          h="80vh"
+        >
+          <SearchBooks
+            bookDetails={bookDetails}
+            setBookDetails={setBookDetails}
+            selectedBook={selectedBook}
+            setSelectedBook={setSelectedBook}
+            handleSelectBook={handleSelectBook}
+            handleAddBookToList={handleAddBookToList}
+          />
+          <BookDetails
+            bookDetails={bookDetails}
+            handleDetailChange={handleDetailChange}
+            handleAddBookToList={handleAddBookToList}
+            selectedBook={selectedBook}
+          />
+          <ListOfBooks booksList={booksList} onDeleteBook={handleDeleteBook} />
+        </Flex>
+      </Center>
+    </ChakraProvider>
   );
 }
