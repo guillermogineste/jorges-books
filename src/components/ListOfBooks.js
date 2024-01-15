@@ -84,7 +84,7 @@ const ListOfBooks = ({ booksList, onDeleteBook }) => {
         divider={<StackDivider borderColor="gray.400" />}
         spacing={4}
         align="stretch"
-        overflowY="scroll"
+        overflowY="auto"
         flex="1"
       >
         {booksList.length === 0 && (

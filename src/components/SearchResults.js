@@ -15,6 +15,11 @@ import {
 } from "@chakra-ui/react";
 
 const SearchResults = ({ books, handleSelectBook }) => {
+  const cleanImageUrl = (url) => {
+    if (!url) return url;
+    return url.split("&edge=curl").join("");
+  };
+
   return (
     <Flex
       overflow="hidden"
@@ -27,7 +32,13 @@ const SearchResults = ({ books, handleSelectBook }) => {
       <Heading as="h4" size="sm" color="gray.500">
         Resultados
       </Heading>
-      <VStack spacing={2} align="stretch">
+      <VStack
+        spacing={2}
+        align="stretch"
+        overflowY="auto"
+        overflowX="hidden"
+        flex="1"
+      >
         {books.length > 0 ? (
           books.map((book) => (
             <Card
@@ -36,12 +47,15 @@ const SearchResults = ({ books, handleSelectBook }) => {
               p={4}
               variant="outline"
               borderColor="gray.400"
+              flexGrow={1}
+              overflow="visible"
+              gap="1"
             >
               <Image
-                width="80px"
+                width="70px"
                 objectFit="contain"
                 align="top"
-                src={book.volumeInfo.imageLinks?.smallThumbnail}
+                src={cleanImageUrl(book.volumeInfo.imageLinks?.thumbnail)}
                 alt={`Cover of ${book.volumeInfo.title}`}
                 fallbackSrc="https://placehold.co/80x80?text=No+Image"
               />
@@ -51,7 +65,7 @@ const SearchResults = ({ books, handleSelectBook }) => {
                     {book.volumeInfo.title}
                   </Heading>
 
-                  <Text fontSize="sm" py="2">
+                  <Text fontSize="sm" py="1" color="gray.500">
                     {book.volumeInfo.authors?.join(", ")}
                     {book.volumeInfo.publisher
                       ? ` (${book.volumeInfo.publisher}`
