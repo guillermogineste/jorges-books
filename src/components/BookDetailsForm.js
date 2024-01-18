@@ -45,7 +45,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <Heading as="h4" size="sm">
             General
           </Heading>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize="sm">Nº de artículo</FormLabel>
             <Input
               id="book-id"
@@ -75,7 +75,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
               onChange={(e) => handleDetailChange("listing_type", e.target.value)}
             />
           </FormControl>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize="sm">Titulo</FormLabel>
             <Input
               id="title"
@@ -85,7 +85,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
               onChange={(e) => handleDetailChange("title", e.target.value)}
             />
           </FormControl>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize="sm">Autor</FormLabel>
             <Input
               id="author"
@@ -112,7 +112,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
             Atributos
           </Heading>
           <HStack gap={2}>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel fontSize="sm">Estado</FormLabel>
               <Select
                 id="book-condition"
@@ -211,7 +211,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
             </FormControl>
           </HStack>
 
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize="sm">Encuadernación</FormLabel>
             <Select
               id="binding-type"
@@ -343,7 +343,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
               onChange={(e) => handleDetailChange("status", e.target.value)}
             />
           </FormControl>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize="sm">Precio</FormLabel>
             <Input
               id="price"
