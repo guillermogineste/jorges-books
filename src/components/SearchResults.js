@@ -43,7 +43,6 @@ const SearchResults = ({ books, handleSelectBook }) => {
           books.map((book) => (
             <Card
               direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
               p={4}
               variant="outline"
               borderColor="gray.400"
