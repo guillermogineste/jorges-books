@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { VStack, Flex, StackDivider } from "@chakra-ui/react";
 import BookDetailsForm from "./BookDetailsForm";
 import DetailsFooter from "./DetailsFooter";
@@ -8,6 +8,9 @@ const BookDetails = ({
   handleDetailChange,
   handleAddBookToList,
   selectedBook,
+  errors, 
+  setErrors, 
+  handleBlur
 }) => {
   return (
     <VStack
@@ -26,11 +29,15 @@ const BookDetails = ({
           bookDetails={bookDetails}
           handleDetailChange={handleDetailChange}
           selectedBook={selectedBook}
+          errors={errors}
+          setErrors={setErrors}
+          handleBlur={handleBlur}
         />
       </Flex>
       <DetailsFooter
         bookDetails={bookDetails}
         handleAddBookToList={handleAddBookToList}
+        errors={errors}
       />
     </VStack>
   );

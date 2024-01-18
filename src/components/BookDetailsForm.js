@@ -9,10 +9,18 @@ import {
   VStack,
   HStack,
   useColorModeValue,
+  FormErrorMessage
 } from "@chakra-ui/react";
 import spanishLanguages from "../utils/spanish_languages.json";
 
-const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
+const BookDetailsForm = ({
+  bookDetails,
+  handleDetailChange,
+  selectedBook,
+  errors,
+  setErrors,
+  handleBlur
+}) => {
   const [isFlashing, setIsFlashing] = useState(false);
 
   useEffect(() => {
@@ -45,15 +53,17 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <Heading as="h4" size="sm">
             General
           </Heading>
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={errors.book_id}>
             <FormLabel fontSize="sm">Nº de artículo</FormLabel>
             <Input
               id="book-id"
               size="sm"
               type="text"
-              value={bookDetails.book_id}
+              value={bookDetails.book_id || ""}
               onChange={(e) => handleDetailChange("book_id", e.target.value)}
+              onBlur={() => handleBlur("book_id")}
             />
+            {errors.book_id && <FormErrorMessage>{errors.book_id}</FormErrorMessage>}
           </FormControl>
           <FormControl>
             <FormLabel fontSize="sm">ISBN</FormLabel>
@@ -75,25 +85,29 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
               onChange={(e) => handleDetailChange("listing_type", e.target.value)}
             />
           </FormControl>
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={errors.title}>
             <FormLabel fontSize="sm">Titulo</FormLabel>
             <Input
               id="title"
               size="sm"
               type="text"
-              value={bookDetails.title}
+              value={bookDetails.title || ""}
               onChange={(e) => handleDetailChange("title", e.target.value)}
+              onBlur={() => handleBlur("title")}
             />
+            {errors.title && <FormErrorMessage>{errors.title}</FormErrorMessage>}
           </FormControl>
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={errors.author}>
             <FormLabel fontSize="sm">Autor</FormLabel>
             <Input
               id="author"
               size="sm"
               type="text"
-              value={bookDetails.author}
+              value={bookDetails.author || ""}
               onChange={(e) => handleDetailChange("author", e.target.value)}
+              onBlur={() => handleBlur("author")}
             />
+            {errors.author && <FormErrorMessage>{errors.author}</FormErrorMessage>}
           </FormControl>
           <FormControl>
             <FormLabel fontSize="sm">Ilustrador</FormLabel>
@@ -112,15 +126,16 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
             Atributos
           </Heading>
           <HStack gap={2}>
-            <FormControl isRequired>
+            <FormControl isRequired isInvalid={errors.book_condition}>
               <FormLabel fontSize="sm">Estado</FormLabel>
               <Select
                 id="book-condition"
                 size="sm"
-                value={bookDetails.book_condition}
+                value={bookDetails.book_condition || ""}
                 onChange={(e) =>
                   handleDetailChange("book_condition", e.target.value)
                 }
+                onBlur={() => handleBlur("book_condition")}
               >
                 <option value="">No especificado</option>
                 <option value="Nuevo">Nuevo</option>
@@ -132,6 +147,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
                 <option value="Regular">Regular</option>
                 <option value="Pobre">Pobre</option>
               </Select>
+              {errors.book_condition && <FormErrorMessage>{errors.book_condition}</FormErrorMessage>}
             </FormControl>
             <FormControl>
               <FormLabel fontSize="sm">Firma</FormLabel>
@@ -211,15 +227,16 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
             </FormControl>
           </HStack>
 
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={errors.binding_type}>
             <FormLabel fontSize="sm">Encuadernación</FormLabel>
             <Select
               id="binding-type"
               size="sm"
-              value={bookDetails.binding_type}
+              value={bookDetails.binding_type || ""}
               onChange={(e) =>
                 handleDetailChange("binding_type", e.target.value)
               }
+              onBlur={() => handleBlur("binding_type")}
             >
               <option value="">No especificado</option>
               <option value="Encuadernación de tapa dura">
@@ -235,6 +252,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
               <option value="Libro en Audio (DVD)">Libro en Audio (DVD)</option>
               <option value="Sin Encuadernar">Sin Encuadernar</option>
             </Select>
+            {errors.binding_type && <FormErrorMessage>{errors.binding_type}</FormErrorMessage>}
           </FormControl>
           <FormControl>
             <FormLabel fontSize="sm">Idioma</FormLabel>
@@ -343,15 +361,17 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
               onChange={(e) => handleDetailChange("status", e.target.value)}
             />
           </FormControl>
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={errors.price}>
             <FormLabel fontSize="sm">Precio</FormLabel>
             <Input
               id="price"
               size="sm"
               type="text"
-              value={bookDetails.price}
+              value={bookDetails.price || ""}
               onChange={(e) => handleDetailChange("price", e.target.value)}
+              onBlur={() => handleBlur("price")}
             />
+            {errors.price && <FormErrorMessage>{errors.price}</FormErrorMessage>}
           </FormControl>
         </VStack>
       </VStack>

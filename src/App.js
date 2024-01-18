@@ -9,20 +9,20 @@ import { ChakraProvider, Center, Flex, Box } from "@chakra-ui/react";
 
 export default function App() {
   const [bookDetails, setBookDetails] = useState({
-    title: "",
-    author: "",
+    title: null,
+    author: null,
     page_count: "",
     isbn: "",
     publisher: "",
     language: "es",
     publisher_year: "",
-    book_id: "",
+    book_id: null,
     listing_type: "Libro",
     illustrator: "",
     keywords: "",
-    book_condition: "",
+    book_condition: null,
     jacket_condition: "",
-    binding_type: "",
+    binding_type: null,
     signature_type: "",
     edition: "",
     printing: "",
@@ -34,7 +34,7 @@ export default function App() {
     inventory_location: "",
     quantity: "1",
     status: "En venta",
-    price: "",
+    price: null,
     cost: "0",
     description: "",
     synopsis: "",
@@ -44,27 +44,26 @@ export default function App() {
   });
   const [selectedBook, setSelectedBook] = useState(null);
   const [booksList, setBooksList] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const handleAddBookToList = (newBook) => {
     setBooksList([...booksList, newBook]);
   };
 
+  const getLanguageCode = (book) => book.volumeInfo.language || "es";
+const getPublisherYear = (book) => {
+  const publishedDate = book.volumeInfo.publishedDate || "";
+  return publishedDate.split("-")[0];
+};
+const getISBN = (book) => {
+  const industryIdentifiers = book.volumeInfo.industryIdentifiers || [];
+  const isbn13 = industryIdentifiers.find(identifier => identifier.type === "ISBN_13")?.identifier;
+  const isbn10 = industryIdentifiers.find(identifier => identifier.type === "ISBN_10")?.identifier;
+  return isbn13 || isbn10 || "";
+};
+
   const handleSelectBook = (book) => {
     setSelectedBook(book);
-    // Language
-    const languageCode = book.volumeInfo.language || "es";
-    // Publishing Year
-    const publishedDate = book.volumeInfo.publishedDate || "";
-    const publisherYear = publishedDate.split("-")[0];
-    // ISBN
-    const industryIdentifiers = book.volumeInfo.industryIdentifiers || [];
-    const isbn13 = industryIdentifiers.find(
-      (identifier) => identifier.type === "ISBN_13",
-    )?.identifier;
-    const isbn10 = industryIdentifiers.find(
-      (identifier) => identifier.type === "ISBN_10",
-    )?.identifier;
-    const isbn = isbn13 || isbn10 || "";
 
     setBookDetails({
       title: book.volumeInfo.title || "",
@@ -72,10 +71,10 @@ export default function App() {
       page_count: book.volumeInfo.pageCount
         ? book.volumeInfo.pageCount.toString()
         : "",
-      isbn: isbn,
+      isbn: getISBN(book),
       publisher: book.volumeInfo.publisher || "",
-      language: languageCode,
-      publisher_year: publisherYear || "",
+      language: getLanguageCode(book),
+      publisher_year: getPublisherYear(book),
       book_id: "",
       listing_type: "Libro",
       illustrator: "",
@@ -109,8 +108,26 @@ export default function App() {
     setBooksList(newBooksList);
   };
 
+  const validateField = (name, value) => {
+    let error = "";
+    if (!value) {
+      error = "Este campo es obligatorio.";
+    } else if ((name === "book_condition" || name === "binding_type") && value === "") {
+      error = "Por favor, selecciona una opción válida.";
+    }
+    return error;
+  };
+
+  const handleBlur = (key) => {
+    const value = bookDetails[key];
+    const error = validateField(key, value);
+    setErrors({ ...errors, [key]: error });
+  };
+
   const handleDetailChange = (key, value) => {
-    setBookDetails({ ...bookDetails, [key]: value });
+    setBookDetails({ ...bookDetails, [key]: value === "" ? null : value });
+    const error = validateField(key, value);
+    setErrors({ ...errors, [key]: error });
   };
 
   return (
@@ -137,6 +154,9 @@ export default function App() {
             handleDetailChange={handleDetailChange}
             handleAddBookToList={handleAddBookToList}
             selectedBook={selectedBook}
+            errors={errors}
+            setErrors={setErrors}
+            handleBlur={handleBlur}
           />
           <ListOfBooks booksList={booksList} onDeleteBook={handleDeleteBook} />
         </Flex>
