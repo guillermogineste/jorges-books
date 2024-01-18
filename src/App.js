@@ -116,13 +116,13 @@ export default function App() {
   return (
     <ChakraProvider>
       <Center w="100vw" h="100vh" bg="gray.100">
-        <Flex
+      <Flex
           direction="row"
           align="top"
           justify="center"
           gap={4}
-          w="90vw"
-          h="80vh"
+          w="95vw"
+          h="95vh"
         >
           <SearchBooks
             bookDetails={bookDetails}
