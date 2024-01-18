@@ -104,8 +104,8 @@ export default function App() {
     });
   };
 
-  const handleDeleteBook = (index) => {
-    const newBooksList = booksList.filter((_, i) => i !== index);
+  const handleDeleteBook = (book_id) => {
+    const newBooksList = booksList.filter((book) => book.book_id !== book_id);
     setBooksList(newBooksList);
   };
 

@@ -112,7 +112,7 @@ const ListOfBooks = ({ booksList, onDeleteBook }) => {
 
               <CardFooter p={0}>
                 <Button
-                  onClick={() => onDeleteBook(index)}
+                  onClick={() => onDeleteBook(book.book_id)}
                   variant="outline"
                   colorScheme="red"
                   size="sm"
