@@ -48,6 +48,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Nº de artículo</FormLabel>
             <Input
+              id="book-id"
               size="sm"
               type="text"
               value={bookDetails.book_id}
@@ -57,6 +58,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">ISBN</FormLabel>
             <Input
+              id="isbn"
               size="sm"
               type="text"
               value={bookDetails.isbn}
@@ -66,17 +68,17 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Tipo de artículo</FormLabel>
             <Input
+              id="listing-type"
               size="sm"
               type="text"
               value={bookDetails.listing_type}
-              onChange={(e) =>
-                handleDetailChange("listing_type", e.target.value)
-              }
+              onChange={(e) => handleDetailChange("listing_type", e.target.value)}
             />
           </FormControl>
           <FormControl>
             <FormLabel fontSize="sm">Titulo</FormLabel>
             <Input
+              id="title"
               size="sm"
               type="text"
               value={bookDetails.title}
@@ -86,6 +88,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Autor</FormLabel>
             <Input
+              id="author"
               size="sm"
               type="text"
               value={bookDetails.author}
@@ -95,12 +98,11 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Ilustrador</FormLabel>
             <Input
+              id="illustrator"
               size="sm"
               type="text"
               value={bookDetails.illustrator}
-              onChange={(e) =>
-                handleDetailChange("illustrator", e.target.value)
-              }
+              onChange={(e) => handleDetailChange("illustrator", e.target.value)}
             />
           </FormControl>
         </VStack>
@@ -113,6 +115,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
             <FormControl>
               <FormLabel fontSize="sm">Estado</FormLabel>
               <Select
+                id="book-condition"
                 size="sm"
                 value={bookDetails.book_condition}
                 onChange={(e) =>
@@ -160,6 +163,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
             <FormControl>
               <FormLabel fontSize="sm">Sobrecubierta</FormLabel>
               <Select
+                id="jacket-condition"
                 size="sm"
                 value={bookDetails.jacket_condition}
                 onChange={(e) =>
@@ -184,8 +188,8 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
             <FormControl>
               <FormLabel fontSize="sm">Edición</FormLabel>
               <Select
-                size="sm"
                 id="edition"
+                size="sm"
                 value={bookDetails.edition}
                 onChange={(e) => handleDetailChange("edition", e.target.value)}
               >
@@ -210,6 +214,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Encuadernación</FormLabel>
             <Select
+              id="binding-type"
               size="sm"
               value={bookDetails.binding_type}
               onChange={(e) =>
@@ -234,6 +239,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Idioma</FormLabel>
             <Select
+              id="language"
               size="sm"
               value={bookDetails.language}
               onChange={(e) => handleDetailChange("language", e.target.value)}
@@ -254,6 +260,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Editorial</FormLabel>
             <Input
+              id="publisher"
               size="sm"
               type="text"
               value={bookDetails.publisher}
@@ -263,23 +270,21 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Año</FormLabel>
             <Input
+              id="publisher-year"
               size="sm"
               type="text"
               value={bookDetails.publisher_year}
-              onChange={(e) =>
-                handleDetailChange("publisher_year", e.target.value)
-              }
+              onChange={(e) => handleDetailChange("publisher_year", e.target.value)}
             />
           </FormControl>
           <FormControl>
             <FormLabel fontSize="sm">Lugar</FormLabel>
             <Input
+              id="publisher-place"
               size="sm"
               type="text"
               value={bookDetails.publisher_place}
-              onChange={(e) =>
-                handleDetailChange("publisher_place", e.target.value)
-              }
+              onChange={(e) => handleDetailChange("publisher_place", e.target.value)}
             />
           </FormControl>
         </VStack>
@@ -291,10 +296,9 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Descripción</FormLabel>
             <Textarea
+              id="description"
               value={bookDetails.description}
-              onChange={(e) =>
-                handleDetailChange("description", e.target.value)
-              }
+              onChange={(e) => handleDetailChange("description", e.target.value)}
             />
           </FormControl>
         </VStack>
@@ -306,6 +310,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Páginas</FormLabel>
             <Input
+              id="page-count"
               size="sm"
               type="text"
               value={bookDetails.page_count}
@@ -321,6 +326,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Cantidad</FormLabel>
             <Input
+              id="quantity"
               size="sm"
               type="text"
               value={bookDetails.quantity}
@@ -330,6 +336,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Estado</FormLabel>
             <Input
+              id="status"
               size="sm"
               type="text"
               value={bookDetails.status}
@@ -339,6 +346,7 @@ const BookDetailsForm = ({ bookDetails, handleDetailChange, selectedBook }) => {
           <FormControl>
             <FormLabel fontSize="sm">Precio</FormLabel>
             <Input
+              id="price"
               size="sm"
               type="text"
               value={bookDetails.price}
