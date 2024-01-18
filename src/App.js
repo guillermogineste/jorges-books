@@ -46,8 +46,30 @@ export default function App() {
   const [booksList, setBooksList] = useState([]);
   const [errors, setErrors] = useState({});
 
-  const handleAddBookToList = (newBook) => {
-    setBooksList([...booksList, newBook]);
+  const handleAddBookToList = () => {
+    // Validate all fields
+    const newErrors = {};
+    Object.keys(bookDetails).forEach(key => {
+      const value = bookDetails[key];
+      const error = validateField(key, value);
+      if (error) {
+        newErrors[key] = error;
+      }
+    });
+  
+    // Update the errors state
+    setErrors(newErrors);
+  
+    // Check if there are any errors
+    const hasErrors = Object.values(newErrors).some(error => error);
+  
+    if (!hasErrors) {
+      setBooksList([...booksList, bookDetails]);
+      // Optionally, reset form state here if needed
+    } else {
+      // Do not add the book, as there are errors
+      // The input fields will show the error messages since the errors state is updated
+    }
   };
 
   const getLanguageCode = (book) => book.volumeInfo.language || "es";
@@ -101,6 +123,8 @@ const getISBN = (book) => {
       categories: "",
       catalogs: "",
     });
+
+    setErrors({});
   };
 
   const handleDeleteBook = (book_id) => {
