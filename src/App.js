@@ -9,20 +9,20 @@ import { ChakraProvider, Center, Flex, Box } from "@chakra-ui/react";
 
 export default function App() {
   const [bookDetails, setBookDetails] = useState({
-    title: "",
-    author: "",
+    title: null,
+    author: null,
     page_count: "",
     isbn: "",
     publisher: "",
     language: "es",
     publisher_year: "",
-    book_id: "",
+    book_id: null,
     listing_type: "Libro",
     illustrator: "",
     keywords: "",
-    book_condition: "",
+    book_condition: null,
     jacket_condition: "",
-    binding_type: "",
+    binding_type: null,
     signature_type: "",
     edition: "",
     printing: "",
@@ -34,7 +34,7 @@ export default function App() {
     inventory_location: "",
     quantity: "1",
     status: "En venta",
-    price: "",
+    price: null,
     cost: "0",
     description: "",
     synopsis: "",
@@ -44,27 +44,50 @@ export default function App() {
   });
   const [selectedBook, setSelectedBook] = useState(null);
   const [booksList, setBooksList] = useState([]);
+  const [errors, setErrors] = useState({});
 
-  const handleAddBookToList = (newBook) => {
-    setBooksList([...booksList, newBook]);
+  const handleAddBookToList = () => {
+    const newErrors = {};
+    Object.keys(bookDetails).forEach(key => {
+      const value = bookDetails[key];
+      const error = validateField(key, value);
+      if (error) {
+        newErrors[key] = error;
+      }
+    });
+  
+    setErrors(newErrors);
+  
+    const hasErrors = Object.values(newErrors).some(error => error !== null);
+  
+    if (!hasErrors) {
+      setBooksList([...booksList, bookDetails]);
+      // Optionally, reset form state here if needed
+    } else {
+      console.log(`hasErrors=`)
+      console.log(hasErrors)
+      console.log(`errors=`)
+      console.log(errors)
+      // Do not add the book, as there are errors
+      // The input fields will show the error messages since the errors state is updated
+    }
+    
   };
+
+  const getLanguageCode = (book) => book.volumeInfo.language || "es";
+const getPublisherYear = (book) => {
+  const publishedDate = book.volumeInfo.publishedDate || "";
+  return publishedDate.split("-")[0];
+};
+const getISBN = (book) => {
+  const industryIdentifiers = book.volumeInfo.industryIdentifiers || [];
+  const isbn13 = industryIdentifiers.find(identifier => identifier.type === "ISBN_13")?.identifier;
+  const isbn10 = industryIdentifiers.find(identifier => identifier.type === "ISBN_10")?.identifier;
+  return isbn13 || isbn10 || "";
+};
 
   const handleSelectBook = (book) => {
     setSelectedBook(book);
-    // Language
-    const languageCode = book.volumeInfo.language || "es";
-    // Publishing Year
-    const publishedDate = book.volumeInfo.publishedDate || "";
-    const publisherYear = publishedDate.split("-")[0];
-    // ISBN
-    const industryIdentifiers = book.volumeInfo.industryIdentifiers || [];
-    const isbn13 = industryIdentifiers.find(
-      (identifier) => identifier.type === "ISBN_13",
-    )?.identifier;
-    const isbn10 = industryIdentifiers.find(
-      (identifier) => identifier.type === "ISBN_10",
-    )?.identifier;
-    const isbn = isbn13 || isbn10 || "";
 
     setBookDetails({
       title: book.volumeInfo.title || "",
@@ -72,10 +95,10 @@ export default function App() {
       page_count: book.volumeInfo.pageCount
         ? book.volumeInfo.pageCount.toString()
         : "",
-      isbn: isbn,
+      isbn: getISBN(book),
       publisher: book.volumeInfo.publisher || "",
-      language: languageCode,
-      publisher_year: publisherYear || "",
+      language: getLanguageCode(book),
+      publisher_year: getPublisherYear(book),
       book_id: "",
       listing_type: "Libro",
       illustrator: "",
@@ -102,6 +125,8 @@ export default function App() {
       categories: "",
       catalogs: "",
     });
+
+    setErrors({});
   };
 
   const handleDeleteBook = (book_id) => {
@@ -109,8 +134,33 @@ export default function App() {
     setBooksList(newBooksList);
   };
 
+  const mandatoryFields = ['book_id', 'title', 'author', 'book_condition', 'binding_type', 'price'];
+
+const validateField = (name, value) => {
+  // Check if the field is mandatory and validate accordingly
+  if (mandatoryFields.includes(name) && !value) {
+    return "Este campo es obligatorio.";
+  } else if ((name === "book_condition" || name === "binding_type") && value === "") {
+    return "Por favor, selecciona una opción válida.";
+  } else if (name === "book_id" && booksList.some(book => book.book_id === value)) {
+    return "El Nº de artículo ya existe en la lista.";
+  }
+  // For optional fields or if no error, return null
+  return null;
+};
+
+  const handleBlur = (key) => {
+    const value = bookDetails[key];
+    const error = validateField(key, value);
+    setErrors({ ...errors, [key]: error });
+  };
+
   const handleDetailChange = (key, value) => {
-    setBookDetails({ ...bookDetails, [key]: value });
+    setBookDetails({ ...bookDetails, [key]: value === "" ? null : value });
+    const error = validateField(key, value);
+    setErrors({ ...errors, [key]: error });
+    console.log(`handleDetailsChange`)
+    console.log(errors)
   };
 
   return (
@@ -137,6 +187,9 @@ export default function App() {
             handleDetailChange={handleDetailChange}
             handleAddBookToList={handleAddBookToList}
             selectedBook={selectedBook}
+            errors={errors}
+            setErrors={setErrors}
+            handleBlur={handleBlur}
           />
           <ListOfBooks booksList={booksList} onDeleteBook={handleDeleteBook} />
         </Flex>
