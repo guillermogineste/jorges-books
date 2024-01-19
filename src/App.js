@@ -47,7 +47,6 @@ export default function App() {
   const [errors, setErrors] = useState({});
 
   const handleAddBookToList = () => {
-    // Validate all fields
     const newErrors = {};
     Object.keys(bookDetails).forEach(key => {
       const value = bookDetails[key];
@@ -57,19 +56,22 @@ export default function App() {
       }
     });
   
-    // Update the errors state
     setErrors(newErrors);
   
-    // Check if there are any errors
-    const hasErrors = Object.values(newErrors).some(error => error);
+    const hasErrors = Object.values(newErrors).some(error => error !== null);
   
     if (!hasErrors) {
       setBooksList([...booksList, bookDetails]);
       // Optionally, reset form state here if needed
     } else {
+      console.log(`hasErrors=`)
+      console.log(hasErrors)
+      console.log(`errors=`)
+      console.log(errors)
       // Do not add the book, as there are errors
       // The input fields will show the error messages since the errors state is updated
     }
+    
   };
 
   const getLanguageCode = (book) => book.volumeInfo.language || "es";
@@ -132,15 +134,20 @@ const getISBN = (book) => {
     setBooksList(newBooksList);
   };
 
-  const validateField = (name, value) => {
-    let error = "";
-    if (!value) {
-      error = "Este campo es obligatorio.";
-    } else if ((name === "book_condition" || name === "binding_type") && value === "") {
-      error = "Por favor, selecciona una opción válida.";
-    }
-    return error;
-  };
+  const mandatoryFields = ['book_id', 'title', 'author', 'book_condition', 'binding_type', 'price'];
+
+const validateField = (name, value) => {
+  // Check if the field is mandatory and validate accordingly
+  if (mandatoryFields.includes(name) && !value) {
+    return "Este campo es obligatorio.";
+  } else if ((name === "book_condition" || name === "binding_type") && value === "") {
+    return "Por favor, selecciona una opción válida.";
+  } else if (name === "book_id" && booksList.some(book => book.book_id === value)) {
+    return "El Nº de artículo ya existe en la lista.";
+  }
+  // For optional fields or if no error, return null
+  return null;
+};
 
   const handleBlur = (key) => {
     const value = bookDetails[key];
@@ -152,6 +159,8 @@ const getISBN = (book) => {
     setBookDetails({ ...bookDetails, [key]: value === "" ? null : value });
     const error = validateField(key, value);
     setErrors({ ...errors, [key]: error });
+    console.log(`handleDetailsChange`)
+    console.log(errors)
   };
 
   return (

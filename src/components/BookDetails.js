@@ -21,7 +21,7 @@ const BookDetails = ({
       borderColor="gray.400"
       divider={<StackDivider borderColor="gray.400" />}
       h="full"
-      flex="1.5"
+      flex="1.6"
       bg="white"
     >
       <Flex direction="column" flexGrow={1} overflowY="scroll">

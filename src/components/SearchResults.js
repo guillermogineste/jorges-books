@@ -32,16 +32,18 @@ const SearchResults = ({ books, handleSelectBook }) => {
       <Heading as="h4" size="sm" color="gray.500">
         Resultados
       </Heading>
+      <Flex overflowY="auto">
       <VStack
         spacing={2}
         align="stretch"
-        overflowY="auto"
+        overflowY="visible"
         overflowX="hidden"
         flex="1"
       >
         {books.length > 0 ? (
-          books.map((book) => (
+          books.map((book, index) => (
             <Card
+              key={index}
               direction={{ base: "column", sm: "row" }}
               p={4}
               variant="outline"
@@ -98,6 +100,7 @@ const SearchResults = ({ books, handleSelectBook }) => {
           </Box>
         )}
       </VStack>
+      </Flex>
     </Flex>
   );
 };

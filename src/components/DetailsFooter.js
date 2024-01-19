@@ -2,7 +2,10 @@ import React from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 
 const DetailsFooter = ({ bookDetails, handleAddBookToList, errors }) => {
-  const hasErrors = Object.values(errors).some(error => error);
+  const hasErrors = Object.values(errors).some(error => typeof error === 'string' && error);
+  console.log('DetailsFooter')
+  console.log(hasErrors)
+  console.log(errors)
 
   return (
     <Flex p={4} align="center" flexDir={"column"}>

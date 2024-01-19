@@ -49,12 +49,12 @@ const BookDetailsForm = ({
         Detalles del libro
       </Heading>
       <VStack spacing={4} align="stretch">
-        <VStack spacing={3} align="stretch">
-          <Heading as="h4" size="sm">
+        <VStack spacing={2} align="stretch">
+          {/* <Heading as="h4" size="xs">
             General
-          </Heading>
+          </Heading> */}
           <FormControl isRequired isInvalid={errors.book_id}>
-            <FormLabel fontSize="sm">Nº de artículo</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Nº de artículo</FormLabel>
             <Input
               id="book-id"
               size="sm"
@@ -66,7 +66,7 @@ const BookDetailsForm = ({
             {errors.book_id && <FormErrorMessage>{errors.book_id}</FormErrorMessage>}
           </FormControl>
           <FormControl>
-            <FormLabel fontSize="sm">ISBN</FormLabel>
+            <FormLabel mb="1" fontSize="sm">ISBN</FormLabel>
             <Input
               id="isbn"
               size="sm"
@@ -76,7 +76,7 @@ const BookDetailsForm = ({
             />
           </FormControl>
           <FormControl>
-            <FormLabel fontSize="sm">Tipo de artículo</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Tipo de artículo</FormLabel>
             <Input
               id="listing-type"
               size="sm"
@@ -85,32 +85,34 @@ const BookDetailsForm = ({
               onChange={(e) => handleDetailChange("listing_type", e.target.value)}
             />
           </FormControl>
-          <FormControl isRequired isInvalid={errors.title}>
-            <FormLabel fontSize="sm">Titulo</FormLabel>
-            <Input
-              id="title"
-              size="sm"
-              type="text"
-              value={bookDetails.title || ""}
-              onChange={(e) => handleDetailChange("title", e.target.value)}
-              onBlur={() => handleBlur("title")}
-            />
-            {errors.title && <FormErrorMessage>{errors.title}</FormErrorMessage>}
-          </FormControl>
-          <FormControl isRequired isInvalid={errors.author}>
-            <FormLabel fontSize="sm">Autor</FormLabel>
-            <Input
-              id="author"
-              size="sm"
-              type="text"
-              value={bookDetails.author || ""}
-              onChange={(e) => handleDetailChange("author", e.target.value)}
-              onBlur={() => handleBlur("author")}
-            />
-            {errors.author && <FormErrorMessage>{errors.author}</FormErrorMessage>}
-          </FormControl>
+          <HStack align={"top"} gap={2}>
+            <FormControl isRequired isInvalid={errors.title}>
+              <FormLabel mb="1" fontSize="sm">Titulo</FormLabel>
+              <Input
+                id="title"
+                size="sm"
+                type="text"
+                value={bookDetails.title || ""}
+                onChange={(e) => handleDetailChange("title", e.target.value)}
+                onBlur={() => handleBlur("title")}
+              />
+              {errors.title && <FormErrorMessage>{errors.title}</FormErrorMessage>}
+            </FormControl>
+            <FormControl isRequired isInvalid={errors.author}>
+              <FormLabel mb="1" fontSize="sm">Autor</FormLabel>
+              <Input
+                id="author"
+                size="sm"
+                type="text"
+                value={bookDetails.author || ""}
+                onChange={(e) => handleDetailChange("author", e.target.value)}
+                onBlur={() => handleBlur("author")}
+              />
+              {errors.author && <FormErrorMessage>{errors.author}</FormErrorMessage>}
+            </FormControl>
+          </HStack>
           <FormControl>
-            <FormLabel fontSize="sm">Ilustrador</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Ilustrador</FormLabel>
             <Input
               id="illustrator"
               size="sm"
@@ -121,13 +123,13 @@ const BookDetailsForm = ({
           </FormControl>
         </VStack>
 
-        <VStack spacing={3} align="stretch">
-          <Heading as="h4" size="sm">
+        <VStack spacing={2} align="stretch">
+          {/* <Heading as="h4" size="xs">
             Atributos
-          </Heading>
-          <HStack gap={2}>
+          </Heading> */}
+          <HStack align={"top"} gap={2}>
             <FormControl isRequired isInvalid={errors.book_condition}>
-              <FormLabel fontSize="sm">Estado</FormLabel>
+              <FormLabel mb="1" fontSize="sm">Estado</FormLabel>
               <Select
                 id="book-condition"
                 size="sm"
@@ -150,7 +152,7 @@ const BookDetailsForm = ({
               {errors.book_condition && <FormErrorMessage>{errors.book_condition}</FormErrorMessage>}
             </FormControl>
             <FormControl>
-              <FormLabel fontSize="sm">Firma</FormLabel>
+              <FormLabel mb="1" fontSize="sm">Firma</FormLabel>
               <Select
                 size="sm"
                 id="signature_type"
@@ -175,9 +177,9 @@ const BookDetailsForm = ({
               </Select>
             </FormControl>
           </HStack>
-          <HStack gap={2}>
+          <HStack align={"top"} gap={2}>
             <FormControl>
-              <FormLabel fontSize="sm">Sobrecubierta</FormLabel>
+              <FormLabel mb="1" fontSize="sm">Sobrecubierta</FormLabel>
               <Select
                 id="jacket-condition"
                 size="sm"
@@ -202,7 +204,7 @@ const BookDetailsForm = ({
               </Select>
             </FormControl>
             <FormControl>
-              <FormLabel fontSize="sm">Edición</FormLabel>
+              <FormLabel mb="1" fontSize="sm">Edición</FormLabel>
               <Select
                 id="edition"
                 size="sm"
@@ -228,7 +230,7 @@ const BookDetailsForm = ({
           </HStack>
 
           <FormControl isRequired isInvalid={errors.binding_type}>
-            <FormLabel fontSize="sm">Encuadernación</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Encuadernación</FormLabel>
             <Select
               id="binding-type"
               size="sm"
@@ -255,7 +257,7 @@ const BookDetailsForm = ({
             {errors.binding_type && <FormErrorMessage>{errors.binding_type}</FormErrorMessage>}
           </FormControl>
           <FormControl>
-            <FormLabel fontSize="sm">Idioma</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Idioma</FormLabel>
             <Select
               id="language"
               size="sm"
@@ -271,12 +273,12 @@ const BookDetailsForm = ({
           </FormControl>
         </VStack>
 
-        <VStack spacing={3} align="stretch">
-          <Heading as="h4" size="sm">
+        <VStack spacing={2} align="stretch">
+          {/* <Heading as="h4" size="xs">
             Editorial
-          </Heading>
+          </Heading> */}
           <FormControl>
-            <FormLabel fontSize="sm">Editorial</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Editorial</FormLabel>
             <Input
               id="publisher"
               size="sm"
@@ -285,34 +287,36 @@ const BookDetailsForm = ({
               onChange={(e) => handleDetailChange("publisher", e.target.value)}
             />
           </FormControl>
-          <FormControl>
-            <FormLabel fontSize="sm">Año</FormLabel>
-            <Input
-              id="publisher-year"
-              size="sm"
-              type="text"
-              value={bookDetails.publisher_year}
-              onChange={(e) => handleDetailChange("publisher_year", e.target.value)}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel fontSize="sm">Lugar</FormLabel>
-            <Input
-              id="publisher-place"
-              size="sm"
-              type="text"
-              value={bookDetails.publisher_place}
-              onChange={(e) => handleDetailChange("publisher_place", e.target.value)}
-            />
-          </FormControl>
+          <HStack align={"top"} gap={2}>
+            <FormControl>
+              <FormLabel mb="1" fontSize="sm">Año</FormLabel>
+              <Input
+                id="publisher-year"
+                size="sm"
+                type="text"
+                value={bookDetails.publisher_year}
+                onChange={(e) => handleDetailChange("publisher_year", e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel mb="1" fontSize="sm">Lugar</FormLabel>
+              <Input
+                id="publisher-place"
+                size="sm"
+                type="text"
+                value={bookDetails.publisher_place}
+                onChange={(e) => handleDetailChange("publisher_place", e.target.value)}
+              />
+            </FormControl>
+          </HStack>
         </VStack>
 
-        <VStack spacing={3} align="stretch">
-          <Heading as="h4" size="sm">
+        <VStack spacing={2} align="stretch">
+          {/* <Heading as="h4" size="xs">
             Información
-          </Heading>
+          </Heading> */}
           <FormControl>
-            <FormLabel fontSize="sm">Descripción</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Descripción</FormLabel>
             <Textarea
               id="description"
               value={bookDetails.description}
@@ -321,12 +325,12 @@ const BookDetailsForm = ({
           </FormControl>
         </VStack>
 
-        <VStack spacing={3} align="stretch">
-          <Heading as="h4" size="sm">
+        <VStack spacing={2} align="stretch">
+          <Heading as="h4" size="xs">
             Atributos Físicos
           </Heading>
           <FormControl>
-            <FormLabel fontSize="sm">Páginas</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Páginas</FormLabel>
             <Input
               id="page-count"
               size="sm"
@@ -337,12 +341,13 @@ const BookDetailsForm = ({
           </FormControl>
         </VStack>
 
-        <VStack spacing={3} align="stretch">
-          <Heading as="h4" size="sm">
-            Inventario:
-          </Heading>
-          <FormControl>
-            <FormLabel fontSize="sm">Cantidad</FormLabel>
+        <VStack spacing={2} align="stretch">
+          {/* <Heading as="h4" size="xs">
+            Inventario
+          </Heading> */}
+          <HStack align={"top"} gap={2}>
+          <FormControl flex="2">
+            <FormLabel mb="1" fontSize="sm">Cantidad</FormLabel>
             <Input
               id="quantity"
               size="sm"
@@ -351,8 +356,8 @@ const BookDetailsForm = ({
               onChange={(e) => handleDetailChange("quantity", e.target.value)}
             />
           </FormControl>
-          <FormControl>
-            <FormLabel fontSize="sm">Estado</FormLabel>
+          <FormControl flex="1">
+            <FormLabel mb="1" fontSize="sm">Estado</FormLabel>
             <Input
               id="status"
               size="sm"
@@ -361,8 +366,9 @@ const BookDetailsForm = ({
               onChange={(e) => handleDetailChange("status", e.target.value)}
             />
           </FormControl>
+          </HStack>
           <FormControl isRequired isInvalid={errors.price}>
-            <FormLabel fontSize="sm">Precio</FormLabel>
+            <FormLabel mb="1" fontSize="sm">Precio</FormLabel>
             <Input
               id="price"
               size="sm"
