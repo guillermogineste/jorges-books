@@ -139,6 +139,7 @@ const BookDetailsForm = ({
                   handleDetailChange("book_condition", e.target.value)
                 }
                 onBlur={() => handleBlur("book_condition")}
+                color={!bookDetails.book_condition ? "gray.500" : "black"}
               >
                 <option value="">No especificado</option>
                 <option value="Nuevo">Excelente</option>
@@ -162,6 +163,7 @@ const BookDetailsForm = ({
                 onChange={(e) =>
                   handleDetailChange("signature_type", e.target.value)
                 }
+                color={!bookDetails.signature_type ? "gray.500" : "black"}
               >
                 <option value="">No especificado</option>
                 <option value="Firmado por el Autor(es)">
@@ -189,6 +191,7 @@ const BookDetailsForm = ({
                 onChange={(e) =>
                   handleDetailChange("jacket_condition", e.target.value)
                 }
+                color={!bookDetails.jacket_condition ? "gray.500" : "black"}
               >
                 <option value="">No especificado</option>
                 <option value="Nuevo">Nuevo</option>
@@ -212,6 +215,7 @@ const BookDetailsForm = ({
                 size="sm"
                 value={bookDetails.edition}
                 onChange={(e) => handleDetailChange("edition", e.target.value)}
+                color={!bookDetails.edition ? "gray.500" : "black"}
               >
                 <option value="">No especificado</option>
                 <option value="1ª Edición">1ª Edición</option>
@@ -241,6 +245,7 @@ const BookDetailsForm = ({
                 handleDetailChange("binding_type", e.target.value)
               }
               onBlur={() => handleBlur("binding_type")}
+              color={!bookDetails.binding_type ? "gray.500" : "black"}
             >
               <option value="">No especificado</option>
               <option value="Encuadernación de tapa dura">
@@ -314,8 +319,8 @@ const BookDetailsForm = ({
                     handleDetailChange("publisher_place", e.target.value);
                   }
                 }}
-                color={showCustomPublisherPlace ? "gray.500" : "black"}
-              >
+                color={showCustomPublisherPlace || !bookDetails.publisher_place ? "gray.500" : "black"}
+              ><option value="">No especificado</option>
                 <option value="Madrid">Madrid</option>
                 <option value="Barcelona">Barcelona</option>
                 <option value="Buenos Aires">Buenos Aires</option>
