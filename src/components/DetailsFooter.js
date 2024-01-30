@@ -1,11 +1,8 @@
 import React from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 
-const DetailsFooter = ({ bookDetails, handleAddBookToList, errors }) => {
+const DetailsFooter = ({ bookDetails, handleAddBookToList, errors, editingBook, handleUpdateBook }) => {
   const hasErrors = Object.values(errors).some(error => typeof error === 'string' && error);
-  console.log('DetailsFooter')
-  console.log(hasErrors)
-  console.log(errors)
 
   return (
     <Flex p={4} align="center" flexDir={"column"}>
@@ -15,13 +12,13 @@ const DetailsFooter = ({ bookDetails, handleAddBookToList, errors }) => {
         </Text>
       )}
       <Button
-        onClick={() => handleAddBookToList(bookDetails)}
+        onClick={() => editingBook ? handleUpdateBook(bookDetails) : handleAddBookToList(bookDetails)}
         colorScheme="blue"
         width="100%"
         isDisabled={hasErrors}
         maxW={"300px"}
       >
-        Añadir libro a la lista
+        {editingBook ? 'Guardar cambios' : 'Añadir libro a la lista'}
       </Button>
     </Flex>
   );

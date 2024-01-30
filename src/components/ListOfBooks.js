@@ -9,9 +9,15 @@ import {
   Stack,
   CardBody,
   CardFooter,
+  IconButton,
+  Tooltip,
+  HStack,
+  Box
 } from "@chakra-ui/react";
 
-const ListOfBooks = ({ booksList, onDeleteBook }) => {
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+
+const ListOfBooks = ({ booksList, onDeleteBook, onEditBook }) => {
   const handleExport = () => {
     const headers =
       "Book ID\tISBN\tListing Type\tTitle\tAuthor\tIllustrator\tKeywords\tBook Condition\tJacket Condition\tBinding Type\tLanguage\tSignature Type\tEdition\tPrinting\tVolume\tPublisher\tPublisher Year\tPublisher Place\tSize\tWeight\tWeight Units\tPage Count\tInventory Location\tQuantity\tStatus\tPrice\tCost\tDescription\tSynopsis\tPrivate Notes\tCategories\tCatalogs\n";
@@ -19,26 +25,16 @@ const ListOfBooks = ({ booksList, onDeleteBook }) => {
     const data = booksList
       .map(
         (book) =>
-          `${book.book_id || ""}\t${book.isbn || ""}\t${
-            book.listing_type || ""
-          }\t${book.title || ""}\t${book.author || ""}\t${
-            book.illustrator || ""
-          }\t${book.keywords || ""}\t${book.book_condition || ""}\t${
-            book.jacket_condition || ""
-          }\t${book.binding_type || ""}\t${book.language || ""}\t${
-            book.signature_type || ""
-          }\t${book.edition || ""}\t${book.printing || ""}\t${
-            book.volume || ""
-          }\t${book.publisher || ""}\t${book.publisher_year || ""}\t${
-            book.publisher_place || ""
-          }\t${book.size || ""}\t${book.weight || ""}\t${
-            book.weight_units || ""
-          }\t${book.page_count || ""}\t${book.inventory_location || ""}\t${
-            book.quantity || ""
-          }\t${book.status || ""}\t${book.price || ""}\t${book.cost || ""}\t${
-            book.description || ""
-          }\t${book.synopsis || ""}\t${book.private_notes || ""}\t${
-            book.categories || ""
+          `${book.book_id || ""}\t${book.isbn || ""}\t${book.listing_type || ""
+          }\t${book.title || ""}\t${book.author || ""}\t${book.illustrator || ""
+          }\t${book.keywords || ""}\t${book.book_condition || ""}\t${book.jacket_condition || ""
+          }\t${book.binding_type || ""}\t${book.language || ""}\t${book.signature_type || ""
+          }\t${book.edition || ""}\t${book.printing || ""}\t${book.volume || ""
+          }\t${book.publisher || ""}\t${book.publisher_year || ""}\t${book.publisher_place || ""
+          }\t${book.size || ""}\t${book.weight || ""}\t${book.weight_units || ""
+          }\t${book.page_count || ""}\t${book.inventory_location || ""}\t${book.quantity || ""
+          }\t${book.status || ""}\t${book.price || ""}\t${book.cost || ""}\t${book.description || ""
+          }\t${book.synopsis || ""}\t${book.private_notes || ""}\t${book.categories || ""
           }\t${book.catalogs || ""}`,
       )
       .join("\n");
@@ -93,35 +89,48 @@ const ListOfBooks = ({ booksList, onDeleteBook }) => {
           </Text>
         )}
         {reversedBooksList.map((book, index) => (
-          <Card
+          <Box
             direction={{ base: "column", sm: "row" }}
             p={0}
             variant="alpha"
             key={index}
+            width="100%"
           >
-            <Stack>
-              <CardBody p={0}>
+            <HStack>
+              <VStack p={0} flex="1" alignItems="flex-start">
                 <Heading as="h4" size="sm">
                   {book.title} - {book.author}
                 </Heading>
-
-                <Text fontSize="sm" py="2">
+                <Text fontSize="sm">
                   {book.book_id || "Sin Nº de articulo"}
                 </Text>
-              </CardBody>
+              </VStack>
 
-              <CardFooter p={0}>
-                <Button
-                  onClick={() => onDeleteBook(book.book_id)}
-                  variant="outline"
-                  colorScheme="red"
-                  size="sm"
-                >
-                  Eliminar
-                </Button>
-              </CardFooter>
-            </Stack>
-          </Card>
+              <HStack gap={2}>
+                <Tooltip hasArrow label='Editar' placement='top'>
+                  <IconButton
+                    size="sm"
+                    variant='outline'
+                    colorScheme='blue'
+                    aria-label='Editar'
+                    icon={<EditIcon />}
+                    onClick={() => onEditBook(book)}
+                  />
+                </Tooltip>
+                <Tooltip hasArrow label='Borrar' placement='top'>
+                  <IconButton
+                    size="sm"
+                    variant='outline'
+                    colorScheme="red"
+                    aria-label='Borrar'
+                    icon={<DeleteIcon />}
+                    onClick={() => onDeleteBook(book.book_id)}
+                  />
+                </Tooltip>
+              </HStack>
+
+            </HStack>
+          </Box>
         ))}
       </VStack>
     </VStack>

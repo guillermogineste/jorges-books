@@ -10,7 +10,9 @@ const BookDetails = ({
   selectedBook,
   errors, 
   setErrors, 
-  handleBlur
+  handleBlur,
+  editingBook,
+  handleUpdateBook
 }) => {
   return (
     <VStack
@@ -38,6 +40,8 @@ const BookDetails = ({
         bookDetails={bookDetails}
         handleAddBookToList={handleAddBookToList}
         errors={errors}
+        editingBook={editingBook}
+        handleUpdateBook={handleUpdateBook}
       />
     </VStack>
   );

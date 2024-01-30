@@ -48,6 +48,7 @@ export default function App() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [booksList, setBooksList] = useState([]);
   const [errors, setErrors] = useState({});
+  const [editingBook, setEditingBook] = useState(false);
 
   const handleAddBookToList = () => {
     const newErrors = {};
@@ -64,8 +65,17 @@ export default function App() {
     const hasErrors = Object.values(newErrors).some(error => error !== null);
   
     if (!hasErrors) {
-      setBooksList([...booksList, bookDetails]);
-      // Optionally, reset form state here if needed
+      const existingBookIndex = booksList.findIndex(book => book.book_id === bookDetails.book_id);
+      if (existingBookIndex !== -1) {
+        // Replace the existing book with the new details
+        const newBooksList = [...booksList];
+        newBooksList[existingBookIndex] = bookDetails;
+        setBooksList(newBooksList);
+      } else {
+        // Add the new book to the list
+        setBooksList([...booksList, bookDetails]);
+      }
+      // Reset form state here if needed
       setBookDetails(defaultState)
     } else {
       // Do not add the book, as there are errors
@@ -73,6 +83,24 @@ export default function App() {
     }
     
   };
+
+  const handleEditBook = (book) => {
+    setBookDetails(book);
+    setSelectedBook(book);
+    setEditingBook(true);
+  };
+
+  const handleUpdateBook = () => {
+    const existingBookIndex = booksList.findIndex(book => book.book_id === bookDetails.book_id);
+    if (existingBookIndex !== -1) {
+      const newBooksList = [...booksList];
+      newBooksList[existingBookIndex] = bookDetails;
+      setBooksList(newBooksList);
+      setBookDetails(defaultState);
+      setEditingBook(false);
+    }
+  };
+
 
   const getLanguageCode = (book) => book.volumeInfo.language || "es";
 const getPublisherYear = (book) => {
@@ -188,8 +216,10 @@ const validateField = (name, value) => {
             errors={errors}
             setErrors={setErrors}
             handleBlur={handleBlur}
+            editingBook={editingBook}
+            handleUpdateBook={handleUpdateBook}
           />
-          <ListOfBooks booksList={booksList} onDeleteBook={handleDeleteBook} />
+          <ListOfBooks booksList={booksList} onDeleteBook={handleDeleteBook} onEditBook={handleEditBook} />
         </Flex>
       </Center>
     </ChakraProvider>

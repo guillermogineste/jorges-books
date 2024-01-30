@@ -139,7 +139,7 @@ const BookDetailsForm = ({
                 onBlur={() => handleBlur("book_condition")}
               >
                 <option value="">No especificado</option>
-                <option value="Nuevo">"Excelente</option>
+                <option value="Nuevo">Excelente</option>
                 <option value="Nuevo">Nuevo</option>
                 <option value="Como Nuevo">Como Nuevo</option>
                 <option value="Aceptable">Aceptable</option>
