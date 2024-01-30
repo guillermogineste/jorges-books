@@ -85,7 +85,7 @@ const BookDetailsForm = ({
               onChange={(e) => handleDetailChange("listing_type", e.target.value)}
             />
           </FormControl>
-          <HStack align={"top"} gap={2}>
+          
             <FormControl isRequired isInvalid={errors.title}>
               <FormLabel mb="1" fontSize="sm">Titulo</FormLabel>
               <Input
@@ -110,7 +110,6 @@ const BookDetailsForm = ({
               />
               {errors.author && <FormErrorMessage>{errors.author}</FormErrorMessage>}
             </FormControl>
-          </HStack>
           <FormControl>
             <FormLabel mb="1" fontSize="sm">Ilustrador</FormLabel>
             <Input
@@ -140,6 +139,7 @@ const BookDetailsForm = ({
                 onBlur={() => handleBlur("book_condition")}
               >
                 <option value="">No especificado</option>
+                <option value="Nuevo">"Excelente</option>
                 <option value="Nuevo">Nuevo</option>
                 <option value="Como Nuevo">Como Nuevo</option>
                 <option value="Aceptable">Aceptable</option>

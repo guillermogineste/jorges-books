@@ -8,7 +8,8 @@ import { ChakraProvider, Center, Flex, Box } from "@chakra-ui/react";
 // Al seleccionar un libro a la derecha, se deberian llenar los detalles a la izquierda
 
 export default function App() {
-  const [bookDetails, setBookDetails] = useState({
+
+  const defaultState = {
     title: null,
     author: null,
     page_count: "",
@@ -41,7 +42,9 @@ export default function App() {
     private_notes: "",
     categories: "",
     catalogs: "",
-  });
+  };
+
+  const [bookDetails, setBookDetails] = useState(defaultState);
   const [selectedBook, setSelectedBook] = useState(null);
   const [booksList, setBooksList] = useState([]);
   const [errors, setErrors] = useState({});
@@ -63,11 +66,8 @@ export default function App() {
     if (!hasErrors) {
       setBooksList([...booksList, bookDetails]);
       // Optionally, reset form state here if needed
+      setBookDetails(defaultState)
     } else {
-      console.log(`hasErrors=`)
-      console.log(hasErrors)
-      console.log(`errors=`)
-      console.log(errors)
       // Do not add the book, as there are errors
       // The input fields will show the error messages since the errors state is updated
     }
@@ -159,8 +159,6 @@ const validateField = (name, value) => {
     setBookDetails({ ...bookDetails, [key]: value === "" ? null : value });
     const error = validateField(key, value);
     setErrors({ ...errors, [key]: error });
-    console.log(`handleDetailsChange`)
-    console.log(errors)
   };
 
   return (
