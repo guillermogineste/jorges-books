@@ -12,7 +12,8 @@ const BookDetails = ({
   setErrors, 
   handleBlur,
   editingBook,
-  handleUpdateBook
+  handleUpdateBook,
+  handleDiscardChanges
 }) => {
   return (
     <VStack
@@ -42,6 +43,7 @@ const BookDetails = ({
         errors={errors}
         editingBook={editingBook}
         handleUpdateBook={handleUpdateBook}
+        handleDiscardChanges={handleDiscardChanges}
       />
     </VStack>
   );

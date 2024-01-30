@@ -46,6 +46,7 @@ const SearchInput = ({ query, setQuery, isISBN, setIsISBN, handleSearch }) => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={isISBN ? "Número ISBN" : "Titulo del libro"}
+              autoFocus
             />
           </InputGroup>
           <FormControl display="flex" alignItems="center" gap="2">

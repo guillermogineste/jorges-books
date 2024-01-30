@@ -1,7 +1,14 @@
 import React from "react";
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 
-const DetailsFooter = ({ bookDetails, handleAddBookToList, errors, editingBook, handleUpdateBook }) => {
+const DetailsFooter = ({
+  bookDetails,
+  handleAddBookToList,
+  errors,
+  editingBook,
+  handleUpdateBook,
+  handleDiscardChanges
+}) => {
   const hasErrors = Object.values(errors).some(error => typeof error === 'string' && error);
 
   return (
@@ -11,15 +18,27 @@ const DetailsFooter = ({ bookDetails, handleAddBookToList, errors, editingBook, 
           Corrige los errores antes de guardar
         </Text>
       )}
+      <HStack gap={2}>
       <Button
         onClick={() => editingBook ? handleUpdateBook(bookDetails) : handleAddBookToList(bookDetails)}
         colorScheme="blue"
-        width="100%"
+        flex="2"
         isDisabled={hasErrors}
         maxW={"300px"}
       >
         {editingBook ? 'Guardar cambios' : 'Añadir libro a la lista'}
       </Button>
+      {editingBook && (
+        <Button
+          colorScheme="gray"
+          onClick={handleDiscardChanges}
+          flex="1"
+        >
+          Descartar
+        </Button>
+      )}
+      </HStack>
+
     </Flex>
   );
 };

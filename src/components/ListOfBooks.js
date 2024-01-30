@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import {
   Button,
   Heading,
@@ -8,12 +8,22 @@ import {
   IconButton,
   Tooltip,
   HStack,
-  Box
+  Box,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  useDisclosure
 } from "@chakra-ui/react";
 
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-const ListOfBooks = ({ booksList, onDeleteBook, onEditBook }) => {
+const ListOfBooks = ({ booksList, onDeleteBook, onEditBook, onClearBooksList }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
+  
   const handleExport = () => {
     const headers =
       "Book ID\tISBN\tListing Type\tTitle\tAuthor\tIllustrator\tKeywords\tBook Condition\tJacket Condition\tBinding Type\tLanguage\tSignature Type\tEdition\tPrinting\tVolume\tPublisher\tPublisher Year\tPublisher Place\tSize\tWeight\tWeight Units\tPage Count\tInventory Location\tQuantity\tStatus\tPrice\tCost\tDescription\tSynopsis\tPrivate Notes\tCategories\tCatalogs\n";
@@ -65,13 +75,47 @@ const ListOfBooks = ({ booksList, onDeleteBook, onEditBook }) => {
       <Heading as="h3" size="md">
         Lista de libros {booksList.length > 0 && `(${booksList.length})`}
       </Heading>
-      <Button
-        onClick={handleExport}
-        colorScheme="green"
-        isDisabled={booksList.length === 0}
-      >
-        Exportar como .TAB
+      <HStack>
+        <Button
+          flex="3"
+          onClick={handleExport}
+          colorScheme="green"
+          isDisabled={booksList.length === 0}
+        >
+          Exportar como .TAB
+        </Button>
+        <Button flex="1" colorScheme='red' variant='outline' onClick={onOpen} isDisabled={booksList.length === 0}>
+        Vaciar lista
       </Button>
+
+        <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Vaciar lista de libros
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              ¿Estás seguro? Esta acción no se puede deshacer.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                No, cancelar
+              </Button>
+              <Button colorScheme='red' onClick={() => { onClearBooksList(); onClose(); }} ml={3}>
+                Vaciar
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+
+      </HStack>
       <VStack
         divider={<StackDivider borderColor="gray.400" />}
         spacing={4}
