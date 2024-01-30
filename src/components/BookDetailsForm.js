@@ -22,6 +22,8 @@ const BookDetailsForm = ({
   handleBlur
 }) => {
   const [isFlashing, setIsFlashing] = useState(false);
+  const [showCustomPublisherPlace, setShowCustomPublisherPlace] = useState(false);
+  const [customPublisherPlace, setCustomPublisherPlace] = useState("");
 
   useEffect(() => {
     if (selectedBook) {
@@ -300,13 +302,38 @@ const BookDetailsForm = ({
             </FormControl>
             <FormControl>
               <FormLabel mb="1" fontSize="sm">Lugar</FormLabel>
-              <Input
+              <Select
                 id="publisher-place"
                 size="sm"
-                type="text"
-                value={bookDetails.publisher_place}
-                onChange={(e) => handleDetailChange("publisher_place", e.target.value)}
-              />
+                value={showCustomPublisherPlace ? "Otro..." : bookDetails.publisher_place}
+                onChange={(e) => {
+                  if (e.target.value === "Otro...") {
+                    setShowCustomPublisherPlace(true);
+                  } else {
+                    setShowCustomPublisherPlace(false);
+                    handleDetailChange("publisher_place", e.target.value);
+                  }
+                }}
+                color={showCustomPublisherPlace ? "gray.500" : "black"}
+              >
+                <option value="Madrid">Madrid</option>
+                <option value="Barcelona">Barcelona</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="México, D. F">México, D. F</option>
+                <option value="Otro...">Otro...</option>
+              </Select>
+              {showCustomPublisherPlace && (
+                <Input
+                  my={1}
+                  autoFocus
+                  id="custom-publisher-place"
+                  size="sm"
+                  type="text"
+                  value={customPublisherPlace}
+                  onChange={(e) => setCustomPublisherPlace(e.target.value)}
+                  onBlur={() => handleDetailChange("publisher_place", customPublisherPlace)}
+                />
+              )}
             </FormControl>
           </HStack>
         </VStack>
