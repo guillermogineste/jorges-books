@@ -87,31 +87,31 @@ const BookDetailsForm = ({
               onChange={(e) => handleDetailChange("listing_type", e.target.value)}
             />
           </FormControl>
-          
-            <FormControl isRequired isInvalid={errors.title}>
-              <FormLabel mb="1" fontSize="sm">Titulo</FormLabel>
-              <Input
-                id="title"
-                size="sm"
-                type="text"
-                value={bookDetails.title || ""}
-                onChange={(e) => handleDetailChange("title", e.target.value)}
-                onBlur={() => handleBlur("title")}
-              />
-              {errors.title && <FormErrorMessage>{errors.title}</FormErrorMessage>}
-            </FormControl>
-            <FormControl isRequired isInvalid={errors.author}>
-              <FormLabel mb="1" fontSize="sm">Autor</FormLabel>
-              <Input
-                id="author"
-                size="sm"
-                type="text"
-                value={bookDetails.author || ""}
-                onChange={(e) => handleDetailChange("author", e.target.value)}
-                onBlur={() => handleBlur("author")}
-              />
-              {errors.author && <FormErrorMessage>{errors.author}</FormErrorMessage>}
-            </FormControl>
+
+          <FormControl isRequired isInvalid={errors.title}>
+            <FormLabel mb="1" fontSize="sm">Titulo</FormLabel>
+            <Input
+              id="title"
+              size="sm"
+              type="text"
+              value={bookDetails.title || ""}
+              onChange={(e) => handleDetailChange("title", e.target.value)}
+              onBlur={() => handleBlur("title")}
+            />
+            {errors.title && <FormErrorMessage>{errors.title}</FormErrorMessage>}
+          </FormControl>
+          <FormControl isRequired isInvalid={errors.author}>
+            <FormLabel mb="1" fontSize="sm">Autor</FormLabel>
+            <Input
+              id="author"
+              size="sm"
+              type="text"
+              value={bookDetails.author || ""}
+              onChange={(e) => handleDetailChange("author", e.target.value)}
+              onBlur={() => handleBlur("author")}
+            />
+            {errors.author && <FormErrorMessage>{errors.author}</FormErrorMessage>}
+          </FormControl>
           <FormControl>
             <FormLabel mb="1" fontSize="sm">Ilustrador</FormLabel>
             <Input
@@ -295,7 +295,7 @@ const BookDetailsForm = ({
             />
           </FormControl>
           <HStack align={"top"} gap={2}>
-            <FormControl>
+            <FormControl flex="1">
               <FormLabel mb="1" fontSize="sm">Año</FormLabel>
               <Input
                 id="publisher-year"
@@ -305,40 +305,41 @@ const BookDetailsForm = ({
                 onChange={(e) => handleDetailChange("publisher_year", e.target.value)}
               />
             </FormControl>
-            <FormControl>
+            <FormControl flex="2">
               <FormLabel mb="1" fontSize="sm">Lugar</FormLabel>
-              <Select
-                id="publisher-place"
-                size="sm"
-                value={showCustomPublisherPlace ? "Otro..." : bookDetails.publisher_place}
-                onChange={(e) => {
-                  if (e.target.value === "Otro...") {
-                    setShowCustomPublisherPlace(true);
-                  } else {
-                    setShowCustomPublisherPlace(false);
-                    handleDetailChange("publisher_place", e.target.value);
-                  }
-                }}
-                color={showCustomPublisherPlace || !bookDetails.publisher_place ? "gray.500" : "black"}
-              ><option value="">No especificado</option>
-                <option value="Madrid">Madrid</option>
-                <option value="Barcelona">Barcelona</option>
-                <option value="Buenos Aires">Buenos Aires</option>
-                <option value="México, D. F">México, D. F</option>
-                <option value="Otro...">Otro...</option>
-              </Select>
-              {showCustomPublisherPlace && (
-                <Input
-                  my={1}
-                  autoFocus
-                  id="custom-publisher-place"
+              <HStack gap={1}>
+                <Select
+                  id="publisher-place"
                   size="sm"
-                  type="text"
-                  value={customPublisherPlace}
-                  onChange={(e) => setCustomPublisherPlace(e.target.value)}
-                  onBlur={() => handleDetailChange("publisher_place", customPublisherPlace)}
-                />
-              )}
+                  value={showCustomPublisherPlace ? "Otro..." : bookDetails.publisher_place}
+                  onChange={(e) => {
+                    if (e.target.value === "Otro...") {
+                      setShowCustomPublisherPlace(true);
+                    } else {
+                      setShowCustomPublisherPlace(false);
+                      handleDetailChange("publisher_place", e.target.value);
+                    }
+                  }}
+                  color={showCustomPublisherPlace || !bookDetails.publisher_place ? "gray.500" : "black"}
+                ><option value="">No especificado</option>
+                  <option value="Madrid">Madrid</option>
+                  <option value="Barcelona">Barcelona</option>
+                  <option value="Buenos Aires">Buenos Aires</option>
+                  <option value="México, D. F">México, D. F</option>
+                  <option value="Otro...">Otro...</option>
+                </Select>
+                {showCustomPublisherPlace && (
+                  <Input
+                    autoFocus
+                    id="custom-publisher-place"
+                    size="sm"
+                    type="text"
+                    value={customPublisherPlace}
+                    onChange={(e) => setCustomPublisherPlace(e.target.value)}
+                    onBlur={() => handleDetailChange("publisher_place", customPublisherPlace)}
+                  />
+                )}
+              </HStack>
             </FormControl>
           </HStack>
         </VStack>
@@ -378,26 +379,26 @@ const BookDetailsForm = ({
             Inventario
           </Heading> */}
           <HStack align={"top"} gap={2}>
-          <FormControl flex="2">
-            <FormLabel mb="1" fontSize="sm">Cantidad</FormLabel>
-            <Input
-              id="quantity"
-              size="sm"
-              type="text"
-              value={bookDetails.quantity}
-              onChange={(e) => handleDetailChange("quantity", e.target.value)}
-            />
-          </FormControl>
-          <FormControl flex="1">
-            <FormLabel mb="1" fontSize="sm">Estado</FormLabel>
-            <Input
-              id="status"
-              size="sm"
-              type="text"
-              value={bookDetails.status}
-              onChange={(e) => handleDetailChange("status", e.target.value)}
-            />
-          </FormControl>
+            <FormControl flex="2">
+              <FormLabel mb="1" fontSize="sm">Cantidad</FormLabel>
+              <Input
+                id="quantity"
+                size="sm"
+                type="text"
+                value={bookDetails.quantity}
+                onChange={(e) => handleDetailChange("quantity", e.target.value)}
+              />
+            </FormControl>
+            <FormControl flex="1">
+              <FormLabel mb="1" fontSize="sm">Estado</FormLabel>
+              <Input
+                id="status"
+                size="sm"
+                type="text"
+                value={bookDetails.status}
+                onChange={(e) => handleDetailChange("status", e.target.value)}
+              />
+            </FormControl>
           </HStack>
           <FormControl isRequired isInvalid={errors.price}>
             <FormLabel mb="1" fontSize="sm">Precio</FormLabel>
