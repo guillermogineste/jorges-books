@@ -81,7 +81,7 @@ const BookDetailsForm = ({
                   onChange={(e) => handleDetailChange("isbn", e.target.value)}
                 />
               </FormControl>
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel mb="1" fontSize="sm">Tipo de artículo</FormLabel>
                 <Input
                   id="listing-type"
@@ -90,7 +90,7 @@ const BookDetailsForm = ({
                   value={bookDetails.listing_type}
                   onChange={(e) => handleDetailChange("listing_type", e.target.value)}
                 />
-              </FormControl>
+              </FormControl> */}
 
               <FormControl isRequired isInvalid={errors.title}>
                 <FormLabel mb="1" fontSize="sm">Titulo</FormLabel>
@@ -374,7 +374,7 @@ const BookDetailsForm = ({
             </VStack>
 
             <VStack spacing={2} align="stretch">
-              <HStack align={"top"} gap={2}>
+              {/* <HStack align={"top"} gap={2}> */}
                 <FormControl flex="2">
                   <FormLabel mb="1" fontSize="sm">Cantidad</FormLabel>
                   <Input
@@ -385,7 +385,7 @@ const BookDetailsForm = ({
                     onChange={(e) => handleDetailChange("quantity", e.target.value)}
                   />
                 </FormControl>
-                <FormControl flex="1">
+                {/* <FormControl flex="1">
                   <FormLabel mb="1" fontSize="sm">Estado</FormLabel>
                   <Input
                     id="status"
@@ -394,8 +394,8 @@ const BookDetailsForm = ({
                     value={bookDetails.status}
                     onChange={(e) => handleDetailChange("status", e.target.value)}
                   />
-                </FormControl>
-              </HStack>
+                </FormControl> */}
+              {/* </HStack> */}
               <FormControl isRequired isInvalid={errors.price}>
                 <FormLabel mb="1" fontSize="sm">Precio</FormLabel>
                 <Input

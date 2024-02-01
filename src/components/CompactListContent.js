@@ -28,7 +28,7 @@ const CompactListContent = ({ onToggleExpand, booksCount, handleExport, booksLis
             </Tooltip>
             <Tooltip hasArrow label='Libros guardados' placement='top'>
                 <Center
-                    bgColor={"gray.100"}
+                    bgColor={booksCount === 0 ? "gray.100" : "blue.100"}
                     width={"40px"}
                     height={"40px"}
                     borderRadius={"50%"}
