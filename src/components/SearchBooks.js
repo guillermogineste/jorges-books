@@ -28,7 +28,7 @@ const SearchBooks = ({ setSelectedBook, handleSelectBook }) => {
   };
 
   return (
-    <VStack spacing={4} align="stretch" flex="1">
+    <VStack spacing={4} align="stretch" flex="1" maxW={"340px"}>
       <SearchInput
         query={query}
         setQuery={setQuery}
